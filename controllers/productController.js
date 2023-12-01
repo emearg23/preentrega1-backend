@@ -7,7 +7,6 @@ const getProducts = (req, res) => {
 
     let products = productManager.getProducts();
 
-    // Lógica de paginación y ordenamiento
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 

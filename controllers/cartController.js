@@ -41,11 +41,8 @@ const addProductToCart = async (req, res) => {
   }
 };
 
-// Otros métodos del controlador según tus necesidades
-
 module.exports = {
   createCart,
   getCartById,
   addProductToCart,
-  // Otros métodos exportados
 };

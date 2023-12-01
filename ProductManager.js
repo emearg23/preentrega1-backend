@@ -19,9 +19,6 @@ class ProductManager {
     const data = JSON.stringify(this.products, null, 2);
     fs.writeFileSync(this.dataFile, data);
   }
-
-  // ... otras funciones de ProductManager
-
 }
 
 module.exports = ProductManager;

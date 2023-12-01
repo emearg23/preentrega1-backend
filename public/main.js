@@ -1,11 +1,8 @@
-// Declaración de la variable products con algunos datos de ejemplo
 const products = [
   { id: 1, title: "Producto 1", price: 19.99, thumbnail: "url_producto_1.jpg" },
   { id: 2, title: "Producto 2", price: 29.99, thumbnail: "url_producto_2.jpg" },
-  // ... más productos ...
 ];
 
-// Llama a la función para renderizar la lista al cargar la página
 window.onload = function () {
   renderProductList(products);
 };
@@ -36,7 +33,6 @@ function renderProductList(products) {
   });
 }
 
-// Llama a la función para renderizar la lista al cargar la página
 window.onload = function () {
   renderProductList(products);
 };

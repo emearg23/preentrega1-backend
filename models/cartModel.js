@@ -5,7 +5,7 @@ const cartSchema = new mongoose.Schema({
     {
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product', // Referencia al modelo de productos
+        ref: 'Product',
         required: true,
       },
       quantity: {
@@ -15,7 +15,6 @@ const cartSchema = new mongoose.Schema({
       },
     },
   ],
-  // Otros campos según tus necesidades
 });
 
 const CartModel = mongoose.model('Cart', cartSchema);
@@ -37,7 +36,7 @@ class Cart {
       this.products.push({ productId, quantity });
     }
 
-    await this.saveToDatabase(); // Guardar los cambios en la base de datos
+    await this.saveToDatabase();
   }
 
   async removeProduct(productId) {
@@ -47,7 +46,7 @@ class Cart {
 
     if (index !== -1) {
       this.products.splice(index, 1);
-      await this.saveToDatabase(); // Guardar los cambios en la base de datos
+      await this.saveToDatabase();
     }
   }
 

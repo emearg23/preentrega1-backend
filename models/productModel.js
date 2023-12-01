@@ -85,7 +85,7 @@ class Product {
   async updateProduct() {
     try {
       const updatedProduct = await ProductModel.findByIdAndUpdate(
-        this._id, // suponiendo que tienes _id en tu instancia de producto
+        this._id,
         { $set: this },
         { new: true }
       );
