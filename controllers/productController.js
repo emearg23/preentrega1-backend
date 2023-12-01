@@ -3,14 +3,34 @@ const productManager = new ProductManager("products.json");
 
 const getProducts = (req, res) => {
   try {
-    const limit = parseInt(req.query.limit);
+    const { limit = 10, page = 1, sort } = req.query;
+
     let products = productManager.getProducts();
 
-    if (!isNaN(limit) && limit > 0) {
-      products = products.slice(0, limit);
+    // Lógica de paginación y ordenamiento
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    products = products.slice(startIndex, endIndex);
+
+    if (sort) {
+      products.sort((a, b) => {
+        return sort === 'asc' ? a.price - b.price : b.price - a.price;
+      });
     }
 
-    res.json(products);
+    res.json({
+      status: 'success',
+      payload: products,
+      totalPages: Math.ceil(productManager.getProducts().length / limit),
+      prevPage: page > 1 ? page - 1 : null,
+      nextPage: endIndex < productManager.getProducts().length ? page + 1 : null,
+      page: page,
+      hasPrevPage: page > 1,
+      hasNextPage: endIndex < productManager.getProducts().length,
+      prevLink: page > 1 ? `/products?limit=${limit}&page=${page - 1}` : null,
+      nextLink: endIndex < productManager.getProducts().length ? `/products?limit=${limit}&page=${page + 1}` : null,
+    });
   } catch (error) {
     res.status(500).json({ error: "Error al obtener productos :/" });
   }
@@ -43,15 +63,10 @@ const updateProduct = (req, res) => {
   const updatedProductData = req.body;
 
   try {
-    const updatedProduct = productManager.updateProduct(
-      pid,
-      updatedProductData
-    );
+    const updatedProduct = productManager.updateProduct(pid, updatedProductData);
     res.json(updatedProduct);
   } catch (error) {
-    res
-      .status(404)
-      .json({ error: "Producto no encontrado para actualizar :(" });
+    res.status(404).json({ error: "Producto no encontrado para actualizar :(" });
   }
 };
 
